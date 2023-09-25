@@ -270,7 +270,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: dfaa3884d803a487e9544ff47801cc4d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 1801884085}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -644,7 +644,7 @@ MonoBehaviour:
   camera: {fileID: 963194228}
   playerObject: {fileID: 1877283794}
   lookSpeed: 10
-  moveSpeed: 1
+  moveSpeed: 5
   gravity: -9.807
   jumpIntensity: 5
 --- !u!143 &1877283796
