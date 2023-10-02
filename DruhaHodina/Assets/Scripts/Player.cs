@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] float lookSpeed = 10;
     [SerializeField] float moveSpeed = 10;
     [SerializeField] float gravity;
+    [SerializeField] GameObject turret;
 
     [SerializeField] float jumpIntensity;
     float yVelocity = 0f;
@@ -25,6 +27,57 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        PlayerMovement();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            BuildTurret();
+        }
+    }
+
+    void BuildTurret()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, camera.forward, out hit, 1000f))
+        {
+            Vector3 up = hit.normal.normalized;
+            Vector3 forward = Vector3.Cross(camera.right, up).normalized;
+
+            Debug.Log(Quaternion.Euler(camera.forward));
+
+            Instantiate(turret, hit.point, Quaternion.LookRotation(forward, up));
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(camera.transform.position, camera.forward * 100);
+        
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, camera.forward, out hit, 1000f))
+        {
+            Debug.DrawRay(camera.transform.position, camera.forward * hit.distance, Color.yellow);
+            Gizmos.color = Color.black;
+            Gizmos.DrawSphere(hit.point, 0.1f);
+            
+            Gizmos.color = Color.blue;
+            Vector3 up = hit.normal.normalized;
+            Gizmos.DrawRay(hit.point, up);
+
+            Gizmos.color = Color.red;
+            Vector3 right = Vector3.Cross(up, camera.forward);
+            Gizmos.DrawRay(hit.point, right.normalized);
+
+            Gizmos.color = Color.green;
+            Vector3 forward = Vector3.Cross(camera.right, up);
+            Gizmos.DrawRay(hit.point, forward.normalized);
+
+        }
+    }
+
+    void PlayerMovement()
     {
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
