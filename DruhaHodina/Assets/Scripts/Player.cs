@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed = 10;
     [SerializeField] float gravity;
     [SerializeField] GameObject turret;
+    [SerializeField] GameObject ball;
 
     [SerializeField] float jumpIntensity;
     float yVelocity = 0f;
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -34,6 +36,13 @@ public class Player : MonoBehaviour
         {
             BuildTurret();
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            ball.transform.position = new Vector3(0,10,0);
+        }
+        
+        
     }
 
     void BuildTurret()
